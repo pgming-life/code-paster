@@ -1,0 +1,19 @@
+file_config = "paster_config.json"
+file_code_txt = "paste_code.txt"
+file_error = "paster_error.log"
+
+str_window_title = "Header Paster"
+str_label_note = "パスも拡張子も末尾の「;」の有無はどちらでも可"
+str_label_path = r"パス： ex)C:\Program Files;\;\trunk;   ※当該・相対パス可"
+str_label_ext = "拡張子：ex)*.cpp;*.json;*.bat   ※「*.」は必須"
+str_button_start = "開始"
+str_progress_move = "Processing"
+str_input_none = "２つの入力項目を全て埋めてください。"
+str_create_file_list = "対象ファイルリスト作成中..."
+str_read_error = "読み込みエラーがありました。"
+str_read_error_output = "エラーログ[{}]を出力しています。".format(file_error)
+str_open_error_log = "エラーログ[{}]を開きます。".format(file_error)
+str_open_log_error = "エラーログ[{}]を開けません。".format(file_error)
+str_end = "終了します..."
+str_read_error_txt = "[{}]が読み込めません。他のエンコードで作り直してください。".format(file_code_txt)
+str_read_none_txt = "[{}]内が空です。ペーストコードをファイル内に記述してください。".format(file_code_txt)

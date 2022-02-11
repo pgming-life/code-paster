@@ -1,6 +1,0 @@
-window_title = "Header Paster"
-label_note_str = "パスも拡張子も末尾の「;」の有無はどちらでも可"
-label_path_str = r"パス： ex)C:\Program Files;\;\trunk;   ※当該・相対パス可"
-label_ext_str = "拡張子：ex)*.cpp;*.json;*.bat   ※「*.」は必須"
-button_ok_str = "開始"
-progress_move_str = "Processing"

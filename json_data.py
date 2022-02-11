@@ -1,23 +1,24 @@
 import json
 from practical_package import module_gui_text as gui
+import app_string as astr
 
 # タグ辞書
 tag_list = {'path' : "path", 'ext' : "extension"}
 
 # データ保存先
-file_config = "paster_config.json"
+file_config = astr.file_config
 
 # ファイル確認・作成
 def file_write_create():
-    lines = []
-    lines.append("{")
-    lines.append("    \"inputbox\": {")
-    lines.append("        \"{}\": [],".format(tag_list['path']))
-    lines.append("        \"{}\": []".format(tag_list['ext']))
-    lines.append("    }")
-    lines.append("}")
+    lines = [
+        "{",
+        "    \"inputbox\": {",
+        "        \"{}\": [],".format(tag_list['path']),
+        "        \"{}\": []".format(tag_list['ext']),
+        "    }",
+        "}",
+    ]
     gui.file_create(file_config, lines_string=lines)
-file_write_create()
 
 # 入力データ保存
 def save_input_data(paths, exts):
@@ -35,6 +36,10 @@ def save_input_data(paths, exts):
     with open(file_config, 'w') as fw:
         json.dump(ys, fw, indent=4)
 
+# jsonファイル作成
+file_write_create()
+
+# ファイル読み込み
 load_error = False
 try:
     # JSONファイルからテキストストリームを生成

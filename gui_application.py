@@ -1,17 +1,16 @@
 from processing_target import *
 import json_data as jd
 import widget_placement as wp
-import widget_string as ws
+import app_string as astr
 
 class GuiApplication(gui.tk.Frame):
     def __init__(self, master=None, paths=[], exts=[]):
         window_width = wp.window_width
         window_height = wp.window_height
-
         super().__init__(master, width=window_width, height=window_height)
 
         self.master = master
-        self.master.title(ws.window_title)
+        self.master.title(astr.str_window_title)
         self.master.minsize(window_width, window_height)
         self.pack()
 
@@ -57,11 +56,11 @@ class GuiApplication(gui.tk.Frame):
         ext_box_num = wp.ext_box_num
 
         # ラベル作成
-        self.label_note = gui.tk.Label(text=ws.label_note_str)
+        self.label_note = gui.tk.Label(text=astr.str_label_note)
         self.label_note.place(x=wp.label_note_x, y=wp.label_note_y)
-        self.label_path = gui.tk.Label(text=ws.label_path_str)
+        self.label_path = gui.tk.Label(text=astr.str_label_path)
         self.label_path.place(x=path_label_x, y=path_label_y)
-        self.label_ext = gui.tk.Label(text=ws.label_ext_str)
+        self.label_ext = gui.tk.Label(text=astr.str_label_ext)
         self.label_ext.place(x=ext_label_x, y=ext_label_y)
 
         # インプットボックス作成
@@ -93,7 +92,7 @@ class GuiApplication(gui.tk.Frame):
             i.bind("<Key>", self.search_start_sck)
 
         # ボタン作成
-        self.button_start = gui.tk.ttk.Button(self, text=ws.button_ok_str, padding=10, command=self.get_input)
+        self.button_start = gui.tk.ttk.Button(self, text=astr.str_button_start, padding=10, command=self.get_input)
         self.button_start.place(x=wp.button_start_x, y=wp.button_start_y)
     
     # 処理開始ショートカットキー
@@ -116,14 +115,17 @@ class GuiApplication(gui.tk.Frame):
         # 入力データ保存
         jd.save_input_data(paths, exts)
 
-        # 処理開始
-        self.target_start(paths, exts)
+        # ターゲット処理開始
+        if paths and exts:
+            self.target_start(paths, exts)
+        else:
+            self.target.label_progress.update(astr.str_input_none)
 
-    # 処理開始
+    # ターゲット処理開始
     def target_start(self, paths, exts):
         # スレッド重複処理の防止
         if not self.target.is_running:
             self.target.label_progress_move.is_loop = True
-            self.target.label_progress_move.start(ws.progress_move_str)
+            self.target.label_progress_move.start(astr.str_progress_move)
             self.target.progressbar.reset()
             self.target.start(paths, exts)
