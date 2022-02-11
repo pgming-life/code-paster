@@ -1,5 +1,7 @@
 from processing_target import *
+import json_data as jd
 import widget_placement as wp
+import widget_string as ws
 
 class GuiApplication(gui.tk.Frame):
     def __init__(self, master=None, paths=[], exts=[]):
@@ -9,7 +11,7 @@ class GuiApplication(gui.tk.Frame):
         super().__init__(master, width=window_width, height=window_height)
 
         self.master = master
-        self.master.title("Header Paste")
+        self.master.title(ws.window_title)
         self.master.minsize(window_width, window_height)
         self.pack()
 
@@ -18,6 +20,7 @@ class GuiApplication(gui.tk.Frame):
         self.paths = paths
         self.exts = exts
 
+        # 処理ターゲット
         self.target = ProcessingTarget(
             self,
             label_process_x=wp.label_process_x,
@@ -30,8 +33,10 @@ class GuiApplication(gui.tk.Frame):
             bar_len=wp.bar_len,
         )
 
+        # ウィジェット作成
         self.create_widgets()
 
+    # ウィジェット作成
     def create_widgets(self):
         # パスウィジェットの位置、幅、数
         path_label_x = wp.path_label_x
@@ -52,11 +57,11 @@ class GuiApplication(gui.tk.Frame):
         ext_box_num = wp.ext_box_num
 
         # ラベル作成
-        self.label_note = gui.tk.Label(text="パスも拡張子も末尾の「;」の有無はどちらでも可")
+        self.label_note = gui.tk.Label(text=ws.label_note_str)
         self.label_note.place(x=wp.label_note_x, y=wp.label_note_y)
-        self.label_path = gui.tk.Label(text="パス： ex)C:\Program Files;\;\my_package;   ※当該・相対パス可")
+        self.label_path = gui.tk.Label(text=ws.label_path_str)
         self.label_path.place(x=path_label_x, y=path_label_y)
-        self.label_ext = gui.tk.Label(text="拡張子：ex)*.xml;*.json;*.py;*.pyw;*.txt   ※「*.」は必須")
+        self.label_ext = gui.tk.Label(text=ws.label_ext_str)
         self.label_ext.place(x=ext_label_x, y=ext_label_y)
 
         # インプットボックス作成
@@ -88,15 +93,37 @@ class GuiApplication(gui.tk.Frame):
             i.bind("<Key>", self.search_start_sck)
 
         # ボタン作成
-        self.button_ok = gui.tk.ttk.Button(self, text='検索開始', padding=10, command=self.get_input)
-        self.button_ok.place(x=wp.button_x, y=wp.button_y)
-
-    # 入力文字列取得
-    def get_input(self):
-        pass
-
-    # 検索開始ショートカットキー
+        self.button_start = gui.tk.ttk.Button(self, text=ws.button_ok_str, padding=10, command=self.get_input)
+        self.button_start.place(x=wp.button_start_x, y=wp.button_start_y)
+    
+    # 処理開始ショートカットキー
     def search_start_sck(self, event):
         # Enterキーが押された場合
         if event.keysym == 'Return':
             self.get_input()
+
+    # 入力文字列取得
+    def get_input(self):
+        paths = []
+        exts = []
+        for i in self.input_path:
+            if i.get() != "":
+                paths.append(i.get())
+        for i in self.input_ext:
+            if i.get() != "":
+                exts.append(i.get())
+
+        # 入力データ保存
+        jd.save_input_data(paths, exts)
+
+        # 処理開始
+        self.target_start(paths, exts)
+
+    # 処理開始
+    def target_start(self, paths, exts):
+        # スレッド重複処理の防止
+        if not self.target.is_running:
+            self.target.label_progress_move.is_loop = True
+            self.target.label_progress_move.start(ws.progress_move_str)
+            self.target.progressbar.reset()
+            self.target.start(paths, exts)

@@ -33,5 +33,5 @@ label_note_x = 30
 label_note_y = 215
 
 # ボタン
-button_x = 370
-button_y = 150
+button_start_x = 370
+button_start_y = 150
