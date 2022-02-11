@@ -58,6 +58,14 @@ def start(self_root, gui, raw_paths, raw_exts):
                 for num_ext, rate_ext in enumerate(rate_path):
                     list_file[num_path][num_ext] = natsorted(rate_ext)
 
+            for num_path, rate_path in enumerate(paths):
+                for num_ext, rate_ext in enumerate(exts):
+                    if list_file[num_path][num_ext]:
+                        self_root.progressbar.set.configure(maximum=len(list_file[num_path][num_ext]))
+                        for num_file, rate_file in enumerate(list_file[num_path][num_ext]):
+                            self_root.progressbar.update(num_file)
+                            reader = gui.file_readlines(rate_file)
+
             # エラーログ出力
             if is_error:
                 self_root.label_progress.update(astr.str_read_error)
