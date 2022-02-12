@@ -58,6 +58,7 @@ def start(self_root, gui, raw_paths, raw_exts):
                 for num_ext, rate_ext in enumerate(rate_path):
                     list_file[num_path][num_ext] = natsorted(rate_ext)
 
+            # 対象ファイルへペースト
             for num_path, rate_path in enumerate(paths):
                 for num_ext, rate_ext in enumerate(exts):
                     if list_file[num_path][num_ext]:

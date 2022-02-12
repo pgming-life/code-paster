@@ -6,6 +6,6 @@ def code_txt_create():
 
 def code_txt_read():
     code_txt_create()
-    is_ok, text, line = gui.file_readlines(path_file=astr.file_code_txt)
+    reader = gui.file_readlines(path_file=astr.file_code_txt)
     result = gui.cl.namedtuple('result', 'is_ok, text, line')
-    return result(is_ok=is_ok, text=text, line=line)
+    return result(is_ok=reader.is_ok, text=reader.text, line=reader.line)
