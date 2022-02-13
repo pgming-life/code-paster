@@ -2,6 +2,7 @@ import glob as g
 from natsort import natsorted
 import app_string as astr
 import code_txt_data as ctd
+import historical_data as hd
 
 def start(self_root, mgt, raw_paths, raw_exts):
     # スレッド開始処理
@@ -20,6 +21,12 @@ def start(self_root, mgt, raw_paths, raw_exts):
         if is_ok:
             is_error = False
             output_error = []
+
+            # 現在コードをヒストリカルデータに追加
+            #hd.write_history(line)
+
+            # ヒストリカルデータの読み込み
+            hist = hd.get_history()
 
             # ";"で区切られる複数の検索対象の抽出
             paths = []
@@ -67,7 +74,7 @@ def start(self_root, mgt, raw_paths, raw_exts):
                             self_root.progressbar.update(num_file)
                             reader = mgt.file_readlines(rate_file)
                             if reader.is_ok:
-                                print(reader.encoding)
+                                # コードテキストの書き込み
                                 with open(rate_file, 'w', encoding=reader.encoding) as f:
                                     for i in line:
                                         f.writelines("{}\n".format(i).format(mgt.os.path.basename(rate_file)))

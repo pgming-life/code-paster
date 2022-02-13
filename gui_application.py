@@ -3,7 +3,7 @@ import json_data as jd
 import widget_placement as wp
 import app_string as astr
 
-class GuiApplication(gui.tk.Frame):
+class GuiApplication(mgt.tk.Frame):
     def __init__(self, master=None, paths=[], exts=[]):
         window_width = wp.window_width
         window_height = wp.window_height
@@ -56,43 +56,43 @@ class GuiApplication(gui.tk.Frame):
         ext_box_num = wp.ext_box_num
 
         # ラベル作成
-        self.label_note = gui.tk.Label(text=astr.str_label_note)
+        self.label_note = mgt.tk.Label(text=astr.str_label_note)
         self.label_note.place(x=wp.label_note_x, y=wp.label_note_y)
-        self.label_path = gui.tk.Label(text=astr.str_label_path)
+        self.label_path = mgt.tk.Label(text=astr.str_label_path)
         self.label_path.place(x=path_label_x, y=path_label_y)
-        self.label_ext = gui.tk.Label(text=astr.str_label_ext)
+        self.label_ext = mgt.tk.Label(text=astr.str_label_ext)
         self.label_ext.place(x=ext_label_x, y=ext_label_y)
 
         # インプットボックス作成
-        self.input_path.append(gui.tk.Entry(width=path_box_width))
+        self.input_path.append(mgt.tk.Entry(width=path_box_width))
         self.input_path[0].place(x=path_box_x, y=path_box_y)
         if self.paths:
-            self.input_path[0].insert(gui.tk.END, self.paths[0])
-        p = gui.counter(path_box_y, path_box_y_margin)
+            self.input_path[0].insert(mgt.tk.END, self.paths[0])
+        p = mgt.counter(path_box_y, path_box_y_margin)
         for i in range(1, path_box_num):
             p.count()
-            self.input_path.append(gui.tk.Entry(width=path_box_width))
+            self.input_path.append(mgt.tk.Entry(width=path_box_width))
             self.input_path[i].place(x=path_box_x, y=p.result())
             if i < len(self.paths):
-                self.input_path[i].insert(gui.tk.END, self.paths[i])
+                self.input_path[i].insert(mgt.tk.END, self.paths[i])
         for i in self.input_path:
             i.bind("<Key>", self.search_start_sck)
-        self.input_ext.append(gui.tk.Entry(width=ext_box_width))
+        self.input_ext.append(mgt.tk.Entry(width=ext_box_width))
         self.input_ext[0].place(x=ext_box_x, y=ext_box_y)
         if self.exts:
-            self.input_ext[0].insert(gui.tk.END, self.exts[0])
-        p = gui.counter(ext_box_y, ext_box_y_margin)
+            self.input_ext[0].insert(mgt.tk.END, self.exts[0])
+        p = mgt.counter(ext_box_y, ext_box_y_margin)
         for i in range(1, ext_box_num):
             p.count()
-            self.input_ext.append(gui.tk.Entry(width=ext_box_width))
+            self.input_ext.append(mgt.tk.Entry(width=ext_box_width))
             self.input_ext[i].place(x=ext_box_x, y=p.result())
             if i < len(self.exts):
-                self.input_ext[i].insert(gui.tk.END, self.exts[i])
+                self.input_ext[i].insert(mgt.tk.END, self.exts[i])
         for i in self.input_ext:
             i.bind("<Key>", self.search_start_sck)
 
         # ボタン作成
-        self.button_start = gui.tk.ttk.Button(self, text=astr.str_button_start, padding=10, command=self.get_input)
+        self.button_start = mgt.tk.ttk.Button(self, text=astr.str_button_start, padding=10, command=self.get_input)
         self.button_start.place(x=wp.button_start_x, y=wp.button_start_y)
     
     # 処理開始ショートカットキー
