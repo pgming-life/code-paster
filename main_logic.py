@@ -3,7 +3,7 @@ from natsort import natsorted
 import app_string as astr
 import code_txt_data as ctd
 
-def start(self_root, gui, raw_paths, raw_exts):
+def start(self_root, mgt, raw_paths, raw_exts):
     # スレッド開始処理
     self_root.is_running = True
 
@@ -65,12 +65,12 @@ def start(self_root, gui, raw_paths, raw_exts):
                         self_root.progressbar.set.configure(maximum=len(list_file[num_path][num_ext]))
                         for num_file, rate_file in enumerate(list_file[num_path][num_ext]):
                             self_root.progressbar.update(num_file)
-                            reader = gui.file_readlines(rate_file)
+                            reader = mgt.file_readlines(rate_file)
                             if reader.is_ok:
                                 print(reader.encoding)
                                 with open(rate_file, 'w', encoding=reader.encoding) as f:
                                     for i in line:
-                                        f.writelines("{}\n".format(i).format(gui.os.path.basename(rate_file)))
+                                        f.writelines("{}\n".format(i).format(mgt.os.path.basename(rate_file)))
                                     for i in reader.line:
                                         f.writelines("{}\n".format(i))
                             else:
@@ -80,9 +80,9 @@ def start(self_root, gui, raw_paths, raw_exts):
             # ファイル読み込みエラーログ出力
             if is_error:
                 self_root.label_progress.update(astr.str_read_error)
-                gui.time.sleep(time_interval)
+                mgt.time.sleep(time_interval)
                 self_root.label_progress.update(astr.str_read_error_output)
-                gui.time.sleep(time_interval)
+                mgt.time.sleep(time_interval)
                 with open(astr.file_error, 'w') as f:
                     self_root.progressbar.set.configure(maximum=len(output_error))
                     for num_line, rate_line in enumerate(output_error):
@@ -91,24 +91,24 @@ def start(self_root, gui, raw_paths, raw_exts):
                 self_root.label_progress.update(astr.str_open_error_log)
                 try:
                     # cmdから非同期でエクスプローラー経由で開く
-                    gui.subprocess.Popen(args=['explorer', astr.file_error], shell=True)
-                except gui.subprocess.CalledProcessError:
+                    mgt.subprocess.Popen(args=['explorer', astr.file_error], shell=True)
+                except mgt.subprocess.CalledProcessError:
                     self_root.label_progress.update(astr.str_open_log_error)
-                    gui.time.sleep(time_interval)
+                    mgt.time.sleep(time_interval)
                     self_root.label_progress.update(astr.str_end)
-                    gui.time.sleep(time_interval)
+                    mgt.time.sleep(time_interval)
         else:
             self_root.label_progress.update(astr.str_read_none_txt)
-            gui.time.sleep(time_interval)
+            mgt.time.sleep(time_interval)
             self_root.label_progress.update(astr.str_end)
-            gui.time.sleep(time_interval)
+            mgt.time.sleep(time_interval)
     else:
         self_root.label_progress.update(text)
-        gui.time.sleep(time_interval)
+        mgt.time.sleep(time_interval)
         self_root.label_progress.update(astr.str_read_error_txt)
-        gui.time.sleep(time_interval)
+        mgt.time.sleep(time_interval)
         self_root.label_progress.update(astr.str_end)
-        gui.time.sleep(time_interval)
+        mgt.time.sleep(time_interval)
     #▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ 処理内容 ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
     # スレッド終了処理

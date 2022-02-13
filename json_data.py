@@ -1,5 +1,5 @@
 import json
-from practical_package import module_gui_text as gui
+from practical_package import module_gui_text as mgt
 import app_string as astr
 
 # タグ辞書
@@ -18,7 +18,7 @@ def file_write_create():
         "    }",
         "}",
     ]
-    gui.file_create(file_config, lines_string=lines)
+    mgt.file_create(file_config, lines_string=lines)
 
 # 入力データ保存
 def save_input_data(paths, exts):
@@ -26,10 +26,10 @@ def save_input_data(paths, exts):
     file_write_create()
 
     # データ加工
-    data = gui.cl.OrderedDict()
+    data = mgt.cl.OrderedDict()
     data[tag_list['path']] = [i for i in paths]
     data[tag_list['ext']] = [i for i in exts]
-    ys = gui.cl.OrderedDict()
+    ys = mgt.cl.OrderedDict()
     ys["inputbox"] = data
 
     # JSONファイルへ出力

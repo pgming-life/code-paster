@@ -1,5 +1,5 @@
 # テスト
-def start(self_root, gui):
+def start(self_root, mgt):
     # スレッド開始処理
     self_root.is_running = True
 
@@ -9,7 +9,7 @@ def start(self_root, gui):
     for i in range(len):
         self_root.label_progress.update(i)
         self_root.progressbar.update(i)
-        gui.time.sleep(0.01)
+        mgt.time.sleep(0.01)
     #▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ 処理内容 ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
     # スレッド終了処理
