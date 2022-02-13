@@ -6,6 +6,6 @@ def code_txt_create():
 
 def code_txt_read():
     code_txt_create()
-    reader = mgt.file_readlines(path_file=astr.file_code_txt)
-    result = mgt.cl.namedtuple('result', 'is_ok, text, line')
-    return result(is_ok=reader.is_ok, text=reader.text, line=reader.line)
+    reader = mgt.file_read(path_file=astr.file_code_txt)
+    result = mgt.cl.namedtuple('result', 'is_ok, text, data')
+    return result(is_ok=reader.is_ok, text=reader.text, data=reader.data)

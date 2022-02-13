@@ -4,12 +4,16 @@ from practical_package import module_gui_text as mgt
 def history_folder_create():
     return mgt.folder_create(astr.file_history).is_ok
 
-def write_history(lines):
+def write_history(data):
     num = 1
     while 1:
         file = "{0}/{0}{1}.txt".format(astr.file_history, num)
-        if not mgt.path_search_continue(file).is_ok:
-            mgt.file_create(file, lines)
+        if mgt.path_search_continue(file).is_ok:
+            reader = mgt.file_read(file)
+            if reader.data == data:
+                break
+        else:
+            mgt.file_create(file, data.splitlines())
             break
         num += 1
 
@@ -20,9 +24,9 @@ def get_history():
     while 1:
         file = "{0}/{0}{1}.txt".format(astr.file_history, num)
         if mgt.path_search_continue(file).is_ok:
-            reader = mgt.file_readlines(file)
+            reader = mgt.file_read(file)
             if reader.is_ok:
-                list_data.append(reader.line)
+                list_data.append(reader.data)
             else:
                 output_error.append(reader.text)
         else:

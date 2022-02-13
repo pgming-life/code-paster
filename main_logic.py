@@ -10,20 +10,14 @@ def start(self_root, mgt, raw_paths, raw_exts):
 
     #▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 処理内容 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
     time_interval = 2
-    is_ok, text, line = ctd.code_txt_read()
+    is_ok, text, data = ctd.code_txt_read()
     if is_ok:
-        is_ok = False
-        if line != []:
-            for i in [i for i in line if i != ""]:
-                if i.replace(" ", "").replace("\t", "") != "":
-                    is_ok = True
-                    break
-        if is_ok:
+        if data != "":
             is_error = False
             output_error = []
 
             # 現在コードをヒストリカルデータに追加
-            #hd.write_history(line)
+            hd.write_history(data)
 
             # ヒストリカルデータの読み込み
             hist = hd.get_history()
@@ -72,14 +66,15 @@ def start(self_root, mgt, raw_paths, raw_exts):
                         self_root.progressbar.set.configure(maximum=len(list_file[num_path][num_ext]))
                         for num_file, rate_file in enumerate(list_file[num_path][num_ext]):
                             self_root.progressbar.update(num_file)
-                            reader = mgt.file_readlines(rate_file)
+                            reader = mgt.file_read(rate_file)
                             if reader.is_ok:
-                                # コードテキストの書き込み
+                                # ヒストリカルデータに一致するテキストを削除
+                                
+
+                                # コードテキストを新規書き込み
                                 with open(rate_file, 'w', encoding=reader.encoding) as f:
-                                    for i in line:
-                                        f.writelines("{}\n".format(i).format(mgt.os.path.basename(rate_file)))
-                                    for i in reader.line:
-                                        f.writelines("{}\n".format(i))
+                                    f.write(data.format(mgt.os.path.basename(rate_file)) + "\n")
+                                    f.write(reader.data)
                             else:
                                 is_error = True
                                 output_error.append(reader.text)
