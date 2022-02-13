@@ -1,5 +1,6 @@
 import gui_application as app_main
 import code_txt_data as ctd
+import historical_data
 
 # txtファイルを作成
 ctd.code_txt_create()

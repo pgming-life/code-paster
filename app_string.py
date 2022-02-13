@@ -1,5 +1,6 @@
 file_config = "paster_config.json"
 file_code_txt = "paste_code.txt"
+file_history = "paste_history"
 file_error = "paster_error.log"
 
 str_window_title = "Header Paster"

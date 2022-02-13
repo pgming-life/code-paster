@@ -66,8 +66,18 @@ def start(self_root, gui, raw_paths, raw_exts):
                         for num_file, rate_file in enumerate(list_file[num_path][num_ext]):
                             self_root.progressbar.update(num_file)
                             reader = gui.file_readlines(rate_file)
+                            if reader.is_ok:
+                                print(reader.encoding)
+                                with open(rate_file, 'w', encoding=reader.encoding) as f:
+                                    for i in line:
+                                        f.writelines("{}\n".format(i).format(gui.os.path.basename(rate_file)))
+                                    for i in reader.line:
+                                        f.writelines("{}\n".format(i))
+                            else:
+                                is_error = True
+                                output_error.append(reader.text)
 
-            # エラーログ出力
+            # ファイル読み込みエラーログ出力
             if is_error:
                 self_root.label_progress.update(astr.str_read_error)
                 gui.time.sleep(time_interval)
