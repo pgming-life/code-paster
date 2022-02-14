@@ -66,15 +66,35 @@ def start(self_root, mgt, raw_paths, raw_exts):
                         self_root.progressbar.set.configure(maximum=len(list_file[num_path][num_ext]))
                         for num_file, rate_file in enumerate(list_file[num_path][num_ext]):
                             self_root.progressbar.update(num_file)
-                            reader = mgt.file_read(rate_file)
+                            reader = mgt.file_readlines(rate_file)
                             if reader.is_ok:
                                 # ヒストリカルデータに一致するテキストを削除
-                                
+                                output = []
+                                is_second = False
+                                for i in hist.line:
+                                    num = 0
+                                    cache = []
+                                    lines = output if is_second else reader.line
+                                    for j in lines:
+                                        cache.append(j)
+                                        if j.replace(" ", "").replace("\t", "") == i[num].format(mgt.os.path.basename(rate_file)).replace(" ", "").replace("\t", ""):
+                                            num += 1
+                                            if num == len(i):
+                                                for k in range(len(cache) - num, len(cache))[::-1]:
+                                                    del cache[k]
+                                                num = 0
+                                        else:
+                                            num = 0
+                                    output = cache
 
                                 # コードテキストを新規書き込み
                                 with open(rate_file, 'w', encoding=reader.encoding) as f:
                                     f.write(data.format(mgt.os.path.basename(rate_file)) + "\n")
-                                    f.write(reader.data)
+                                    for i, j in enumerate(output):
+                                        if i != len(output) - 1:
+                                            f.writelines("{}\n".format(j))
+                                        else:
+                                            f.writelines("{}".format(j))
                             else:
                                 is_error = True
                                 output_error.append(reader.text)
