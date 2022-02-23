@@ -7,13 +7,13 @@ def history_folder_create():
 def write_history(data):
     num = 1
     while 1:
-        file = "{0}/{0}{1}.txt".format(astr.file_history, num)
+        file = "{0}/{0}_{1}.txt".format(astr.file_history, num)
         if mgt.path_search_continue(file).is_ok:
             reader = mgt.file_read(file)
             if reader.data == data:
                 break
         else:
-            mgt.file_create(file, data.splitlines())
+            mgt.file_create(file, data)
             break
         num += 1
 
@@ -22,7 +22,7 @@ def get_history():
     output_error = []
     num = 1
     while 1:
-        file = "{0}/{0}{1}.txt".format(astr.file_history, num)
+        file = "{0}/{0}_{1}.txt".format(astr.file_history, num)
         if mgt.path_search_continue(file).is_ok:
             reader = mgt.file_readlines(file)
             if reader.is_ok:
@@ -32,6 +32,6 @@ def get_history():
         else:
             break
         num += 1
-    
+   
     result = mgt.cl.namedtuple('result', 'log, line')
     return result(log=output_error, line=lines)

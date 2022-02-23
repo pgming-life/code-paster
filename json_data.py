@@ -18,7 +18,7 @@ def file_write_create():
         "    }",
         "}",
     ]
-    mgt.file_create(file_config, lines_string=lines)
+    mgt.file_create(file_config, string=lines)
 
 # 入力データ保存
 def save_input_data(paths, exts):

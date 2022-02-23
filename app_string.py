@@ -11,6 +11,7 @@ str_button_start = "開始"
 str_progress_move = "Processing"
 str_input_none = "２つの入力項目を全て埋めてください。"
 str_create_file_list = "対象ファイルリスト作成中..."
+str_paste = "ヘッダ埋め込み中..."
 str_read_error = "読み込みエラーがありました。"
 str_read_error_output = "エラーログ[{}]を出力しています。".format(file_error)
 str_open_error_log = "エラーログ[{}]を開きます。".format(file_error)
