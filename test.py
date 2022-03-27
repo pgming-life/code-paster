@@ -1,5 +1,5 @@
 # テスト
-def start(self_root, mgt):
+def start(self_root, mgt: "module_gui_text") -> None:
     # スレッド開始処理
     self_root.is_running = True
 

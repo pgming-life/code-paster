@@ -4,7 +4,7 @@ import app_string as astr
 import code_txt_data as ctd
 import historical_data as hd
 
-def start(self_root, mgt, raw_paths, raw_exts):
+def start(self_root, mgt: "module_gui_text", raw_paths: list[str], raw_exts: list[str]) -> None:
     # スレッド開始処理
     self_root.is_running = True
 

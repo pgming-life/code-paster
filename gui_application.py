@@ -36,7 +36,7 @@ class GuiApplication(mgt.tk.Frame):
         self.create_widgets()
 
     # ウィジェット作成
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         # パスウィジェットの位置、幅、数
         path_label_x = wp.path_label_x
         path_label_y = wp.path_label_y
@@ -96,13 +96,13 @@ class GuiApplication(mgt.tk.Frame):
         self.button_start.place(x=wp.button_start_x, y=wp.button_start_y)
     
     # 処理開始ショートカットキー
-    def search_start_sck(self, event):
+    def search_start_sck(self, event) -> None:
         # Enterキーが押された場合
         if event.keysym == 'Return':
             self.get_input()
 
     # 入力文字列取得
-    def get_input(self):
+    def get_input(self) -> None:
         paths = []
         exts = []
         for i in self.input_path:
@@ -122,7 +122,7 @@ class GuiApplication(mgt.tk.Frame):
             self.target.label_progress.update(astr.str_input_none)
 
     # ターゲット処理開始
-    def target_start(self, paths, exts):
+    def target_start(self, paths: list[str], exts: list[str]) -> None:
         # スレッド重複処理の防止
         if not self.target.is_running:
             self.target.label_progress_move.is_loop = True

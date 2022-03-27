@@ -9,7 +9,7 @@ tag_list = {'path' : "path", 'ext' : "extension"}
 file_config = astr.file_config
 
 # ファイル確認・作成
-def file_write_create():
+def file_write_create() -> None:
     lines = [
         "{",
         "    \"inputbox\": {",
@@ -21,7 +21,7 @@ def file_write_create():
     mgt.file_create(file_config, string=lines)
 
 # 入力データ保存
-def save_input_data(paths, exts):
+def save_input_data(paths: list[str], exts: list[str]) -> None:
     # ファイル確認・作成
     file_write_create()
 

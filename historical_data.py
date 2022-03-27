@@ -1,10 +1,10 @@
 import app_string as astr
 from practical_package import module_gui_text as mgt
 
-def history_folder_create():
+def history_folder_create() -> mgt.folder_create:
     return mgt.folder_create(astr.file_history).is_ok
 
-def write_history(data):
+def write_history(data: str) -> None:
     num = 1
     while 1:
         file = "{0}/{0}_{1}.txt".format(astr.file_history, num)
@@ -17,7 +17,7 @@ def write_history(data):
             break
         num += 1
 
-def get_history():
+def get_history() -> mgt.cl.namedtuple:
     lines = []
     output_error = []
     num = 1
