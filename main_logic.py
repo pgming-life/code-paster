@@ -76,9 +76,10 @@ def start(self_root, mgt, raw_paths, raw_exts):
                                     num = 0
                                     cache = []
                                     lines = output if is_second else reader.line
+                                    is_second = True
                                     for j in lines:
                                         cache.append(j)
-                                        if j.replace(" ", "").replace("\t", "") == i[num].format(mgt.os.path.basename(rate_file)).replace(" ", "").replace("\t", ""):
+                                        if j == i[num].format(mgt.os.path.basename(rate_file)):
                                             num += 1
                                             if num == len(i):
                                                 for k in range(len(cache) - num, len(cache))[::-1]:
