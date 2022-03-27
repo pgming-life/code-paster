@@ -1,1 +1,1 @@
-# code-paster
+# Code Paster &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/pgming-life/code-paster/blob/main/LICENSE)
