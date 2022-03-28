@@ -1,3 +1,5 @@
+"""get_module_list"""
+
 from pydoc import ModuleScanner
 
 modules = []
@@ -13,5 +15,6 @@ def onerror(modname):
 
 ModuleScanner().run(callback, onerror=onerror)
 
-for i in modules:
-    print(i)
+with open("module_list.txt", 'w', encoding='utf_8') as f:
+    for line in modules:
+        f.writelines("{}\n".format(line))
