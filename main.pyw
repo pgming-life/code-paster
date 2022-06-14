@@ -1,3 +1,20 @@
+from tkinter import *
+
+splash = Tk()
+splash.overrideredirect(1)
+ww=splash.winfo_screenwidth()
+wh=splash.winfo_screenheight()
+splash.geometry("500x300+"+str((ww-500)//2)+"+"+str((wh-300)//2))
+label = Label(splash, text="起動中...", font=("メイリオ", "20", "bold"), fg="gray")
+label.place(x=200, y=135)
+
+def interval():
+	splash.destroy()
+
+# スプラッシュインターバル
+splash.after(5000, interval)
+mainloop()
+
 import gui_application as app_main
 import code_txt_data as ctd
 import historical_data as hd
