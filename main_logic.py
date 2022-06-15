@@ -51,7 +51,7 @@ def start(self_root, mgt: "module_gui_text", raw_paths: list[str], raw_exts: lis
                 for num_ext, rate_ext in enumerate(exts):
                     if rate_path[0:3] != "\\/*":    # このパターン以外を受け付ける(終了できないデッドロック状態に陥るため)
                         if rate_ext[0:2] == "*.":   # このパターンだけ受け付ける(「*」だけだとフォルダ名も検索してしまうので「*」と「.」でセットで受け付ける)
-                            # 当該パス・相対パス・絶対パス対応
+                            # 絶対パス・当該パス・相対パス・上位階層パス対応
                             list_file[num_path][num_ext] = g.glob("{0}{1}".format("**/" if rate_path == "\\" else rate_path[1:] + "/**/" if rate_path[0] == "\\" else rate_path + "/**/", rate_ext), recursive=True)
 
             # int型正規表現ソート(自然順ソート)
