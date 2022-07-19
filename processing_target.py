@@ -1,5 +1,5 @@
 from practical_package import module_gui_text as mgt
-import test
+import debug_test
 import main_logic
 
 class ProcessingTarget:
@@ -12,7 +12,7 @@ class ProcessingTarget:
     # スレッドスタート
     def start(self, paths: list[str], exts: list[str]) -> None:
         # テスト
-        #self.thread_target = mgt.threading.Thread(target=test.start, args=(self, mgt))
+        #self.thread_target = mgt.threading.Thread(target=debug_test.start, args=(self, mgt))
         
         # 本処理
         self.thread_target = mgt.threading.Thread(target=main_logic.start, args=(self, mgt, paths, exts,))
